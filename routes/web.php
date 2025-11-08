@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,10 +31,28 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/about', function () {
+        $user = Auth::user();
+
         return Inertia::render('About', [
-            'username' => 'World'
+            'username' => $user->name
         ]);
-    });
+    })->name('about');
+
+    Route::get('/form1', function () {
+        $user = Auth::user();
+
+        return Inertia::render('Form1', [
+            'username' => $user->name
+        ]);
+    })->name('form1');
+
+    Route::get('/form2', function () {
+        $user = Auth::user();
+
+        return Inertia::render('Form2', [
+            'username' => $user->name
+        ]);
+    })->name('form2');
 });
 
 require __DIR__ . '/auth.php';
