@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
+
+@layer components {
+    /* style for BUTTON with function to : save, accept, finalize */
+    .btn-primary {
+        @apply flex gap-1 items-center justify-center py-2 px-4 bg-primary text-white font-semibold text-lg rounded-md shadow-md ring-1 ring-primary border-primary hover:bg-primaryhover transition-all ;
+    }
+
+    /* style for BUTTON with function to : cancel, clear form  */
+    .btn-secondary {
+        @apply  flex gap-1 items-center justify-center py-2 px-4 bg-secondary text-white font-semibold text-lg rounded-md shadow-md ring-1 ring-secondary border-secondary hover:bg-secondaryhover transition-all;
+    }
+
+    .btn-accent {
+        @apply  flex gap-1 items-center justify-center py-2 px-4 bg-accent text-slate-900 font-semibold text-lg rounded-md shadow-md ring-1 ring-primary border-secondary hover:bg-accenthover transition-all;
+    }
+}
 @tailwind utilities;
+
+@import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;800&display=swap");
+body {
+    font-family: "Poppins", sans-serif;
+}
+.active\:bg-grey-900:active {
+    --tw-bg-opacity: 1;
+    background-color: rgba(17, 24, 39, var(--tw-bg-opacity));
+}
+.hover\:border-4:hover {
+    border-width: 4px;
+}
+.hover\:m-0:hover {
+    margin: 0;
+}
+.focus\:border-4:focus {
+    border-width: 4px;
+}
+.focus\:m-0:focus {
+    margin: 0;
+}
+.active\:border-grey-900:active {
+    --tw-bg-opacity: 1;
+    border-color: rgba(17, 24, 39, var(--tw-bg-opacity));
+}
+.active\:text-grey-900:active {
+    --tw-bg-opacity: 1;
+    color: rgba(17, 24, 39, var(--tw-bg-opacity));
+}
+.active\:border-transparent:active {
+    border-color: transparent;
+}
