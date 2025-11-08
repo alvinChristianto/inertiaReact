@@ -53,6 +53,20 @@ Route::middleware('auth')->group(function () {
             'username' => $user->name
         ]);
     })->name('form2');
+
+    Route::get('/form3', function () {
+        $user = Auth::user();
+
+        return Inertia::render('Form3', [
+            'username' => $user->name
+        ]);
+    })->name('form3');
+
+    Route::get('/button', function () {
+        $user = Auth::user();
+
+        return Inertia::render('Button');
+    })->name('button');
 });
 
 require __DIR__ . '/auth.php';
