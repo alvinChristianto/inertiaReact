@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
+    public function postData(Request $request)
+    {
+        return response('success', 200);
+    }
+
     public function hello()
     {
         return Inertia::render('Hello', [

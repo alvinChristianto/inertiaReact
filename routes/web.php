@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
 
         return Inertia::render('Button');
     })->name('button');
+    Route::post('/process-data', [PageController::class, 'postData'])->name('post-data');
 });
 
 require __DIR__ . '/auth.php';
