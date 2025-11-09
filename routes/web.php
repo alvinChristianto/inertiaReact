@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -24,19 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/hello', function () {
-        return Inertia::render('Hello', [
-            'name' => 'World'
-        ]);
-    });
-
-    Route::get('/about', function () {
-        $user = Auth::user();
-
-        return Inertia::render('About', [
-            'username' => $user->name
-        ]);
-    })->name('about');
+    Route::get('/hello', [PageController::class, 'hello'])->name('hello');
+    Route::get('/about',  [PageController::class, 'about'])->name('about');
 
     Route::get('/form1', function () {
         $user = Auth::user();

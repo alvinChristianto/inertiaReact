@@ -102,12 +102,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </div>
 
                                 {/* buttons */}
-                               <NavLink
+                                <NavLink
                                     href={route("button")}
                                     viewTransition
                                     active={route().current("button")}
                                 >
-                                    buttons
+                                    Buttons
                                 </NavLink>
                             </div>
                         </div>
@@ -278,7 +278,13 @@ export default function AuthenticatedLayout({ header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main>
+                <div className="py-2">
+                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                        {children}
+                    </div>
+                </div>
+            </main>
         </div>
     );
 }

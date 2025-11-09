@@ -1,5 +1,5 @@
 import React from "react";
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link, Head, usePage } from "@inertiajs/react";
 
 // Props passed from your Laravel controller are automatically received here
@@ -16,20 +16,18 @@ export default function About({ username }) {
         >
             <Head title="About" />
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            <h1>Welcome to your Inertia + React app!</h1>
-                            <p>Hello,  {user.name} {username}</p>
-                            <a href="/about">
-                                Go to About Page (Full Page Load)
-                            </a>
-                            <p>OR</p>
-                            <Link href="/about">
-                                Go to About Page (Inertia Visit)
-                            </Link>
-                        </div>
+            <div className="min-h-screen p-2 bg-gray-100 ">
+                <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                    <div className="p-6 text-gray-900">
+                        <h1>Welcome to your Inertia + React app!</h1>
+                        <p>
+                            Hello, {user.name} {username}
+                        </p>
+                        <a href="/about">Go to About Page (Full Page Load)</a>
+                        <p>OR</p>
+                        <Link href="/about">
+                            Go to About Page (Inertia Visit)
+                        </Link>
                     </div>
                 </div>
             </div>
