@@ -1,19 +1,23 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Link, Head, usePage, useForm } from "@inertiajs/react";
+import { Link, Head, usePage, router } from "@inertiajs/react";
+import { useForm } from "react-hook-form";
 
 // Props passed from your Laravel controller are automatically received here
 export default function Form1({ username }) {
     const user = usePage().props.auth.user;
-    const { data, setData, post, processing, progress, errors } = useForm({
-        full_name: "",
-        email: "",
-        address: "",
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors, isValid },
+    } = useForm({
+        mode: "onChange", // "onChange"
     });
-    function submit(e) {
-        e.preventDefault();
-        post("/process-data");
-    }
+
+    const submitLogin = async (data) => {
+        router.post("/process-data", data);
+    };
 
     return (
         <AuthenticatedLayout
@@ -44,7 +48,7 @@ export default function Form1({ username }) {
                                 </div>
 
                                 <div className="lg:col-span-2">
-                                    <form onSubmit={submit}>
+                                    <form onSubmit={handleSubmit(submitLogin)}>
                                         <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                             <div className="md:col-span-5">
                                                 <label htmlFor="full_name">
@@ -55,18 +59,23 @@ export default function Form1({ username }) {
                                                     name="full_name"
                                                     id="full_name"
                                                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                                    value={data.full_name}
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "full_name",
-                                                            e.target.value
-                                                        )
-                                                    }
+                                                    {...register("full_name", {
+                                                        required: {
+                                                            value: true,
+                                                            message:
+                                                                "full_name required",
+                                                        },
+                                                    })}
                                                 />
+                                                {errors.full_name && (
+                                                    <p className="pl-2 text-red-800 font-light ">
+                                                        {
+                                                            errors.full_name
+                                                                .message
+                                                        }
+                                                    </p>
+                                                )}
                                             </div>
-                                            {errors.full_name && (
-                                                <div>{errors.full_name}</div>
-                                            )}
 
                                             <div className="md:col-span-5">
                                                 <label htmlFor="email">
@@ -78,18 +87,25 @@ export default function Form1({ username }) {
                                                     id="email"
                                                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                                     placeholder="email@domain.com"
-                                                    value={data.email}
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "email",
-                                                            e.target.value
-                                                        )
-                                                    }
+                                                    {...register("email", {
+                                                        required: {
+                                                            value: true,
+                                                            message:
+                                                                "Email required",
+                                                        },
+                                                        pattern: {
+                                                            value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                                            message:
+                                                                "Email tidak valid",
+                                                        },
+                                                    })}
                                                 />
+                                                {errors.email && (
+                                                    <p className="pl-2 text-red-800 font-light ">
+                                                        {errors.email.message}
+                                                    </p>
+                                                )}
                                             </div>
-                                            {errors.email && (
-                                                <div>{errors.email}</div>
-                                            )}
 
                                             <div className="md:col-span-3">
                                                 <label htmlFor="address">
@@ -101,18 +117,20 @@ export default function Form1({ username }) {
                                                     id="address"
                                                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                                     placeholder=""
-                                                    value={data.address}
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "address",
-                                                            e.target.value
-                                                        )
-                                                    }
+                                                    {...register("address", {
+                                                        required: {
+                                                            value: true,
+                                                            message:
+                                                                "address required",
+                                                        },
+                                                    })}
                                                 />
+                                                {errors.address && (
+                                                    <p className="pl-2 text-red-800 font-light ">
+                                                        {errors.address.message}
+                                                    </p>
+                                                )}
                                             </div>
-                                            {errors.address && (
-                                                <div>{errors.address}</div>
-                                            )}
 
                                             <div className="md:col-span-2">
                                                 <label htmlFor="city">
@@ -333,22 +351,13 @@ export default function Form1({ username }) {
                                                 <div className="inline-flex items-end">
                                                     <button
                                                         type="submit"
-                                                        disabled={processing}
-                                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                                        className="btn-primary-lg"
                                                     >
                                                         Submit
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
-                                        {progress && (
-                                            <progress
-                                                value={progress.percentage}
-                                                max="100"
-                                            >
-                                                {progress.percentage}%
-                                            </progress>
-                                        )}
                                     </form>
                                 </div>
                             </div>

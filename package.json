@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "@inertiajs/react": "^2.2.15",
-        "lucide-react": "^0.553.0"
+        "lucide-react": "^0.553.0",
+        "react-hook-form": "^7.66.0"
     }
 }

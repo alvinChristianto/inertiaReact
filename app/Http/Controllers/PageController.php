@@ -11,6 +11,7 @@ class PageController extends Controller
 {
     public function postData(Request $request)
     {
+        dd($request);
         return response('success', 200);
     }
 
